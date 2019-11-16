@@ -36,44 +36,49 @@ describe('IncomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call getIncomeByUserId service when call method ngOnInit', () => {
-    spyOn(incomeService, 'getIncomeByUserId').and.returnValue(of([]));
+  describe('getIncomeByUserId service', () => {
+    let expected: Income[];
+    beforeEach(() => {
+      expected = [
+        {
+          id: 1,
+          incomeGroupId: 1,
+          incomeNameGroupId: 'งานประจำ',
+          amount: 1000000,
+          date: '1/31/2019'
+        }
+      ];
+      spyOn(incomeService, 'getIncomeByUserId').and.returnValue(of(expected));
+    });
 
-    component.ngOnInit();
+    it('should call getIncomeByUserId service when call method ngOnInit', () => {
+      component.ngOnInit();
 
-    expect(incomeService.getIncomeByUserId).toHaveBeenCalled();
+      expect(incomeService.getIncomeByUserId).toHaveBeenCalled();
+    });
+
+    it('should set incomes when call getIncomeByUserId is success', () => {
+      component.ngOnInit();
+
+      expect(component.incomes).toEqual(expected);
+    });
   });
 
-  it('should set incomes when call getIncomeByUserId is success', () => {
-    const expected = [
-      {
-        id: 1,
-        incomeGroupId: 1,
-        incomeNameGroupId: 'งานประจำ',
-        amount: 1000000,
-        date: '1/31/2019'
-      }
-    ];
-    spyOn(incomeService, 'getIncomeByUserId').and.returnValue(of(expected));
+  describe('create reactive form', () => {
+    it('should set empty in date of form', () => {
+      component.ngOnInit();
 
-    component.ngOnInit();
+      expect(component.incomeForm.controls.date.value).toBe('');
+    });
 
-    expect(component.incomes).toEqual(expected);
-  });
+    it('should set empty in income group id of form', () => {
+      component.ngOnInit();
+      expect(component.incomeForm.controls.incomeGroupId.value).toBe('');
+    });
 
-  it('should set empty in date of form', () => {
-    component.ngOnInit();
-
-    expect(component.incomeForm.controls.date.value).toBe('');
-  });
-
-  it('should set empty in income group id of form', () => {
-    component.ngOnInit();
-    expect(component.incomeForm.controls.incomeGroupId.value).toBe('');
-  });
-
-  it('should set empty in amount of form', () => {
-    component.ngOnInit();
-    expect(component.incomeForm.controls.amount.value).toBe('');
+    it('should set empty in amount of form', () => {
+      component.ngOnInit();
+      expect(component.incomeForm.controls.amount.value).toBe('');
+    });
   });
 });
