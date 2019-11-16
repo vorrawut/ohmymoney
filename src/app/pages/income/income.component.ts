@@ -1,4 +1,3 @@
-
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Income } from 'src/app/models/income';
@@ -11,12 +10,17 @@ import { IncomeService } from 'src/app/services/income/income.service';
   styleUrls: ['./income.component.scss']
 })
 export class IncomeComponent implements OnInit {
-  constructor(private modalService: BsModalService, private incomeService: IncomeService) {}
+  constructor(
+    private modalService: BsModalService,
+    private incomeService: IncomeService
+  ) {}
   modalRef: BsModalRef;
   incomes: Income[];
 
   ngOnInit() {
-    this.incomeService.getIncomeByUserId();
+    this.incomeService.getIncomeByUserId().subscribe((incomes: Income[]) => {
+      this.incomes = incomes;
+    });
   }
 
   openModal(template: TemplateRef<any>) {
