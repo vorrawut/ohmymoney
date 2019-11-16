@@ -18,18 +18,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr *ngFor="let income of incomes">
                 <td>{{income.id}}</td>
                 <td>{{income.date}}</td>
                 <td>{{income.incomeNameGroupId}}</td>
                 <td>{{income.amount}}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>2/31/2019</td>
-                <td>งานประจำ</td>
-                <td>100,000</td>
                 <td></td>
             </tr>
         </tbody>
