@@ -8,6 +8,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { HttpClientModule } from '@angular/common/http';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ModalModule.forRoot(),
     HttpClientModule,
     BsDatepickerModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
