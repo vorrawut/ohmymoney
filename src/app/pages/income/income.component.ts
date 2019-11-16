@@ -3,7 +3,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Income } from 'src/app/models/income';
 import { HttpClient } from '@angular/common/http';
 import { IncomeService } from 'src/app/services/income/income.service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-income',
@@ -13,7 +13,8 @@ import { FormGroup } from '@angular/forms';
 export class IncomeComponent implements OnInit {
   constructor(
     private modalService: BsModalService,
-    private incomeService: IncomeService
+    private incomeService: IncomeService,
+    private fb: FormBuilder
   ) {}
   modalRef: BsModalRef;
   incomes: Income[];
@@ -22,6 +23,12 @@ export class IncomeComponent implements OnInit {
   ngOnInit() {
     this.incomeService.getIncomeByUserId().subscribe((incomes: Income[]) => {
       this.incomes = incomes;
+    });
+
+    this.incomeForm = this.fb.group({
+      date: '',
+      incomeGroupId: '',
+      amount: ''
     });
   }
 

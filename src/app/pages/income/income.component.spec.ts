@@ -7,6 +7,7 @@ import { IncomeComponent } from './income.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IncomeService } from 'src/app/services/income/income.service';
 import { of } from 'rxjs';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('IncomeComponent', () => {
   let component: IncomeComponent;
@@ -16,7 +17,11 @@ describe('IncomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [IncomeComponent],
-      imports: [ModalModule.forRoot(), HttpClientTestingModule]
+      imports: [
+        ModalModule.forRoot(),
+        HttpClientTestingModule,
+        ReactiveFormsModule
+      ]
     }).compileComponents();
   }));
 
@@ -54,5 +59,21 @@ describe('IncomeComponent', () => {
     component.ngOnInit();
 
     expect(component.incomes).toEqual(expected);
+  });
+
+  it('should set empty in date of form', () => {
+    component.ngOnInit();
+
+    expect(component.incomeForm.controls.date.value).toBe('');
+  });
+
+  it('should set empty in income group id of form', () => {
+    component.ngOnInit();
+    expect(component.incomeForm.controls.incomeGroupId.value).toBe('');
+  });
+
+  it('should set empty in amount of form', () => {
+    component.ngOnInit();
+    expect(component.incomeForm.controls.amount.value).toBe('');
   });
 });
