@@ -31,7 +31,7 @@ export class IncomeService {
   }
 
   updateIncome(id: number, data: IncomeRequest) {
-    data.userId = 22;
+    data.userId = this.USER_ID;
     return this.http.put(`${this.SERVER_URL}/income/id/${id}`, data);
   }
 }
