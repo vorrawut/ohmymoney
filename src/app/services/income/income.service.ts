@@ -2,14 +2,23 @@ import { Income } from 'src/app/models/income';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IncomeGroup } from 'src/app/models/income-group';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IncomeService {
-  constructor(private http: HttpClient) {}
+  SERVER_URL: string;
+
+  constructor(private http: HttpClient) {
+    this.SERVER_URL = 'https://working-with-angular.herokuapp.com';
+  }
 
   getIncomeByUserId(): Observable<Income[]> {
-    return this.http.get<Income[]>('https://working-with-angular.herokuapp.com/income/id/1');
+    return this.http.get<Income[]>(`${this.SERVER_URL}/income/id/1`);
+  }
+
+  getIncomeGroup(): Observable<IncomeGroup[]> {
+    return this.http.get<IncomeGroup[]>(`${this.SERVER_URL}/income/group`);
   }
 }
