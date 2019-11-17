@@ -1,3 +1,4 @@
+import { IncomeRequest } from './../../models/income-request';
 import { IncomeGroup } from './../../models/income-group';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -53,6 +54,17 @@ export class IncomeComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.incomeForm.value);
+    const data = {
+      amount: Number(this.incomeForm.get('amount').value),
+      date: this.getDateISOString(this.incomeForm.get('date').value),
+      incomeGroupId: Number(this.incomeForm.get('incomeGroupId').value)
+    } as IncomeRequest;
+    this.incomeService.saveIncome(data).subscribe(_ => {
+      console.log('success');
+    });
+  }
+
+  getDateISOString(date: string): string {
+    return new Date(date).toISOString();
   }
 }
