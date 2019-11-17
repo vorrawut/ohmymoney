@@ -57,6 +57,10 @@ export class IncomeComponent implements OnInit {
       this.incomeForm
         .get('incomeGroupId')
         .setValue(String(income.incomeGroupId));
+    } else {
+      this.incomeForm.get('date').setValue('');
+      this.incomeForm.get('amount').setValue('');
+      this.incomeForm.get('incomeGroupId').setValue('');
     }
   }
 

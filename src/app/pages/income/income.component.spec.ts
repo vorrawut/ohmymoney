@@ -203,4 +203,20 @@ describe('IncomeComponent', () => {
     expect(component.incomeForm.get('incomeGroupId').value).toBe('');
     expect(component.incomeForm.get('amount').value).toBe('');
   });
+
+  it('should set empty in income form when income data is empty and click add modal', () => {
+    component.incomeForm.get('date').setValue('1/13/2019');
+    component.incomeForm.get('incomeGroupId').setValue('2');
+    component.incomeForm.get('amount').setValue('90000');
+
+    const template = fixture.debugElement.nativeElement.querySelector(
+      '#template'
+    );
+
+    component.openModal(template);
+
+    expect(component.incomeForm.get('date').value).toBe('');
+    expect(component.incomeForm.get('incomeGroupId').value).toBe('');
+    expect(component.incomeForm.get('amount').value).toBe('');
+  });
 });
