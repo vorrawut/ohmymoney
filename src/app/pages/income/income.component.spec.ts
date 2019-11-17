@@ -181,12 +181,26 @@ describe('IncomeComponent', () => {
       incomeGroupName: 'เงินเดือน'
     } as Income;
 
-    const template = fixture.debugElement.nativeElement.querySelector('#template');
+    const template = fixture.debugElement.nativeElement.querySelector(
+      '#template'
+    );
 
     component.openModal(template, input);
 
     expect(component.incomeForm.get('date').value).toBe('11/15/2019');
     expect(component.incomeForm.get('incomeGroupId').value).toBe('3');
     expect(component.incomeForm.get('amount').value).toBe('50000');
+  });
+
+  it('should set empty in date, incomeGroupId, amount when income data is empty and call open modal', () => {
+    const template = fixture.debugElement.nativeElement.querySelector(
+      '#template'
+    );
+
+    component.openModal(template);
+
+    expect(component.incomeForm.get('date').value).toBe('');
+    expect(component.incomeForm.get('incomeGroupId').value).toBe('');
+    expect(component.incomeForm.get('amount').value).toBe('');
   });
 });
