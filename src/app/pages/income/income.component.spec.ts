@@ -142,5 +142,32 @@ describe('IncomeComponent', () => {
     expect(component.getIncomeByUserId).toHaveBeenCalled();
   });
 
+  it('should call updateIncome service when click edit', () => {
+    spyOn(incomeService, 'updateIncome');
+    component.incomeForm.get('date').setValue('11/15/2019');
+    component.incomeForm.get('incomeGroupId').setValue('3');
+    component.incomeForm.get('amount').setValue('50000');
+    spyOn(component, 'getDateISOString').and.returnValue(
+      '2019-11-15T17:58:17.318Z'
+    );
+    const input = {
+      id: 1,
+      amount: 50000,
+      date: '11/15/2019',
+      incomeGroupId: 3,
+      incomeGroupName: 'เงินเดือน'
+    } as Income;
 
+    const dataUpdate = {
+      amount: 50000,
+      date: '2019-11-15T17:58:17.318Z',
+      incomeGroupId: 3
+    } as IncomeRequest;
+    component.edit(input);
+
+    expect(incomeService.updateIncome).toHaveBeenCalledWith(
+      input.id,
+      dataUpdate
+    );
+  });
 });
