@@ -29,4 +29,9 @@ export class IncomeService {
     income.userId = this.USER_ID;
     return this.http.post(`${this.SERVER_URL}/income`, income);
   }
+
+  updateIncome(id: number, data: IncomeRequest) {
+    data.userId = 22;
+    return this.http.put(`${this.SERVER_URL}/income/id/${id}`, data);
+  }
 }
