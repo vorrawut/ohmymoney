@@ -16,7 +16,7 @@ export class IncomeService {
   }
 
   getIncomeByUserId(): Observable<Income[]> {
-    return this.http.get<Income[]>(`${this.SERVER_URL}/income/id/1`);
+    return this.http.get<Income[]>(`${this.SERVER_URL}/income/id/22`);
   }
 
   getIncomeGroup(): Observable<IncomeGroup[]> {

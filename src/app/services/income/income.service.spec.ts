@@ -26,7 +26,7 @@ describe('IncomeService', () => {
     service.getIncomeByUserId().subscribe();
 
     const req = httpTestingController.expectOne(
-      `${service.SERVER_URL}/income/id/1`
+      `${service.SERVER_URL}/income/id/22`
     );
     expect(req.request.method).toBe('GET');
   });
