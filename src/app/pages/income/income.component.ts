@@ -25,6 +25,10 @@ export class IncomeComponent implements OnInit {
   ngOnInit() {
     this.getIncomeByUserId();
     this.createForm();
+    this.getIncomeGroup();
+  }
+
+  getIncomeGroup() {
     this.incomeService.getIncomeGroup().subscribe(incomeGroup => {
       this.incomeGroup = incomeGroup;
     });
@@ -46,5 +50,9 @@ export class IncomeComponent implements OnInit {
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
+  }
+
+  onSubmit() {
+    console.log(this.incomeForm.value);
   }
 }

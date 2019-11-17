@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IncomeGroup } from 'src/app/models/income-group';
+import { IncomeRequest } from 'src/app/models/income-request';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,9 @@ export class IncomeService {
 
   getIncomeGroup(): Observable<IncomeGroup[]> {
     return this.http.get<IncomeGroup[]>(`${this.SERVER_URL}/income/group`);
+  }
+
+  saveIncome(income: IncomeRequest) {
+    return this.http.post(`${this.SERVER_URL}/income`, income);
   }
 }
