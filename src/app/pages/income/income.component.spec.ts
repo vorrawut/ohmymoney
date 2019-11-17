@@ -113,7 +113,9 @@ describe('IncomeComponent', () => {
     component.incomeForm.get('amount').setValue('50000');
 
     spyOn(incomeService, 'saveIncome').and.returnValue(of());
-    spyOn(component, 'getDateISOString').and.returnValue('2019-11-15T17:58:17.318Z');
+    spyOn(component, 'getDateISOString').and.returnValue(
+      '2019-11-15T17:58:17.318Z'
+    );
 
     const expected = {
       amount: 50000,
@@ -124,4 +126,21 @@ describe('IncomeComponent', () => {
     component.onSubmit();
     expect(incomeService.saveIncome).toHaveBeenCalledWith(expected);
   });
+
+  it('should call method get income by userID when called save income success', () => {
+    component.incomeForm.get('date').setValue('11/15/2019');
+    component.incomeForm.get('incomeGroupId').setValue('3');
+    component.incomeForm.get('amount').setValue('50000');
+
+    spyOn(incomeService, 'saveIncome').and.returnValue(of([]));
+    spyOn(component, 'getDateISOString').and.returnValue(
+      '2019-11-15T17:58:17.318Z'
+    );
+    spyOn(component, 'getIncomeByUserId');
+
+    component.onSubmit();
+    expect(component.getIncomeByUserId).toHaveBeenCalled();
+  });
+
+
 });
