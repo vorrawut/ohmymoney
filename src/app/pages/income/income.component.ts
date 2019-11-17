@@ -1,3 +1,4 @@
+import { IncomeGroup } from './../../models/income-group';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Income } from 'src/app/models/income';
@@ -19,10 +20,14 @@ export class IncomeComponent implements OnInit {
   modalRef: BsModalRef;
   incomes: Income[];
   incomeForm: FormGroup;
+  incomeGroup: IncomeGroup[];
 
   ngOnInit() {
     this.getIncomeByUserId();
     this.createForm();
+    this.incomeService.getIncomeGroup().subscribe(incomeGroup => {
+      this.incomeGroup = incomeGroup;
+    });
   }
 
   createForm() {
