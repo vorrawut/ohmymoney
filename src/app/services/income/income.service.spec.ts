@@ -25,7 +25,7 @@ describe('IncomeService', () => {
     service.getIncomeByUserId().subscribe();
 
     const req = httpTestingController.expectOne(
-      'http://103.74.254.157:9003/income/id/1'
+      'https://working-with-angular.herokuapp.com/income/id/1'
     );
     expect(req.request.method).toBe('GET');
   });
