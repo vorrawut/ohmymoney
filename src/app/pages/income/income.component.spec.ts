@@ -141,7 +141,7 @@ describe('IncomeComponent', () => {
     expect(component.getIncomeByUserId).toHaveBeenCalled();
   });
 
-  it('should close modal when save income is success', (done) => {
+  it('(done fn) should close modal when save income is success', (done) => {
 
     component.modalRef = { hide: () => {} } as BsModalRef;
 
@@ -156,6 +156,23 @@ describe('IncomeComponent', () => {
       done();
     });
   });
+
+
+  it('(async) should close modal when save income is success', async(() => {
+
+    component.modalRef = { hide: () => {} } as BsModalRef;
+
+    spyOn(incomeService, 'saveIncome').and.returnValue(of({}));
+    spyOn(component, 'getDateISOString').and.returnValue('2019-11-15T17:58:17.318Z');
+    spyOn(component.modalRef, 'hide');
+
+    component.onSubmit();
+
+    fixture.whenStable().then(() => {
+      expect(component.modalRef.hide).toHaveBeenCalled();
+    });
+  }));
+
 
 
   it('should call updateIncome service when click edit', () => {
