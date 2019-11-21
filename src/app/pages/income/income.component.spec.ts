@@ -1,16 +1,14 @@
-import { IncomeGroup } from './../../models/income-group';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Income } from 'src/app/models/income';
-import { ModalModule } from 'ngx-bootstrap/modal';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { IncomeComponent } from './income.component';
-import { HttpClientModule } from '@angular/common/http';
-import { IncomeService } from 'src/app/services/income/income.service';
-import { of } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
+import { of } from 'rxjs';
+import { Income } from 'src/app/models/income';
 import { IncomeRequest } from 'src/app/models/income-request';
-import { TemplateRef } from '@angular/core';
+import { IncomeService } from 'src/app/services/income/income.service';
+import { IncomeGroup } from './../../models/income-group';
+import { IncomeComponent } from './income.component';
+
 
 describe('IncomeComponent', () => {
   let component: IncomeComponent;
@@ -148,6 +146,9 @@ describe('IncomeComponent', () => {
     component.incomeForm.get('date').setValue('11/15/2019');
     component.incomeForm.get('incomeGroupId').setValue('3');
     component.incomeForm.get('amount').setValue('50000');
+
+    component.modalRef = {} as BsModalRef;
+
     spyOn(component, 'getDateISOString').and.returnValue(
       '2019-11-15T17:58:17.318Z'
     );
