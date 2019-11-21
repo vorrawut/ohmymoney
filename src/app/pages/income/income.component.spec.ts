@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
 import { of } from 'rxjs';
@@ -141,24 +141,8 @@ describe('IncomeComponent', () => {
     expect(component.getIncomeByUserId).toHaveBeenCalled();
   });
 
-  it('(done fn) should close modal when save income is success', (done) => {
 
-    component.modalRef = { hide: () => {} } as BsModalRef;
-
-    const saveIncomeSpy = spyOn(incomeService, 'saveIncome').and.returnValue(of({}));
-    spyOn(component, 'getDateISOString').and.returnValue('2019-11-15T17:58:17.318Z');
-    spyOn(component.modalRef, 'hide');
-
-    component.onSubmit();
-
-    saveIncomeSpy.calls.mostRecent().returnValue.subscribe( _ => {
-      expect(component.modalRef.hide).toHaveBeenCalled();
-      done();
-    });
-  });
-
-
-  it('(async) should close modal when save income is success', async(() => {
+  it('(async+whenStable) should close modal when save income is success', async(() => {
 
     component.modalRef = { hide: () => {} } as BsModalRef;
 
@@ -173,8 +157,36 @@ describe('IncomeComponent', () => {
     });
   }));
 
+  it('(fakeAsync+tick) should close modal when save income is success', fakeAsync(() => {
 
+    component.modalRef = { hide: () => {} } as BsModalRef;
 
+    spyOn(incomeService, 'saveIncome').and.returnValue(of({}));
+    spyOn(component, 'getDateISOString').and.returnValue('2019-11-15T17:58:17.318Z');
+    spyOn(component.modalRef, 'hide');
+
+    component.onSubmit();
+
+    tick();
+
+    expect(component.modalRef.hide).toHaveBeenCalled();
+  }));
+
+  it('(done function) should close modal when save income is success', (done) => {
+
+    component.modalRef = { hide: () => {} } as BsModalRef;
+
+    const saveIncomeSpy = spyOn(incomeService, 'saveIncome').and.returnValue(of({}));
+    spyOn(component, 'getDateISOString').and.returnValue('2019-11-15T17:58:17.318Z');
+    spyOn(component.modalRef, 'hide');
+
+    component.onSubmit();
+
+    saveIncomeSpy.calls.mostRecent().returnValue.subscribe( _ => {
+      expect(component.modalRef.hide).toHaveBeenCalled();
+      done();
+    });
+  });
   it('should call updateIncome service when click edit', () => {
     spyOn(incomeService, 'updateIncome');
     component.incomeForm.get('date').setValue('11/15/2019');
