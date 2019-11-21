@@ -141,6 +141,23 @@ describe('IncomeComponent', () => {
     expect(component.getIncomeByUserId).toHaveBeenCalled();
   });
 
+  it('should close modal when save income is success', (done) => {
+
+    component.modalRef = { hide: () => {} } as BsModalRef;
+
+    const saveIncomeSpy = spyOn(incomeService, 'saveIncome').and.returnValue(of({}));
+    spyOn(component, 'getDateISOString').and.returnValue('2019-11-15T17:58:17.318Z');
+    spyOn(component.modalRef, 'hide');
+
+    component.onSubmit();
+
+    saveIncomeSpy.calls.mostRecent().returnValue.subscribe( _ => {
+      expect(component.modalRef.hide).toHaveBeenCalled();
+      done();
+    });
+  });
+
+
   it('should call updateIncome service when click edit', () => {
     spyOn(incomeService, 'updateIncome');
     component.incomeForm.get('date').setValue('11/15/2019');
